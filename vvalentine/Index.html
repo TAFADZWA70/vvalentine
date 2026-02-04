@@ -1,0 +1,774 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Tanatsirwa 💜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a0033 0%, #4a0e4e 50%, #2d1b3d 100%);
+            color: white;
+        }
+
+        /* Floating Rose Petals */
+        .petal {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, #ff1744 0%, #c2185b 100%);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1000;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Section Styling */
+        section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease;
+        }
+
+            section.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        .content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #e1bee7, #ba68c8, #9c27b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.3);
+            }
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 20px;
+            color: #e1bee7;
+        }
+
+        p, .memory-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #f3e5f5;
+        }
+
+        /* Start Button */
+        .start-btn {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.5);
+            font-family: 'Georgia', serif;
+            margin-top: 30px;
+        }
+
+            .start-btn:hover {
+                transform: translateY(-5px) scale(1.05);
+                box-shadow: 0 15px 40px rgba(156, 39, 176, 0.7);
+            }
+
+        /* Memory Cards */
+        .memory-card {
+            background: rgba(156, 39, 176, 0.2);
+            border: 2px solid #ba68c8;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(156, 39, 176, 0.3);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+            .memory-card.show {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+        .memory-number {
+            font-size: 3rem;
+            color: #e91e63;
+            margin-bottom: 15px;
+        }
+
+        /* Rose Animation */
+        .rose {
+            font-size: 4rem;
+            display: inline-block;
+            animation: bloom 2s ease-in-out infinite;
+            margin: 20px;
+        }
+
+        @keyframes bloom {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
+        }
+
+        /* Hearts Background */
+        .heart {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        /* Final Question Section */
+        #final-question {
+            background: radial-gradient(ellipse at center, rgba(156, 39, 176, 0.3) 0%, transparent 70%);
+        }
+
+        .question-box {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.4), rgba(233, 30, 99, 0.4));
+            border: 3px solid #e91e63;
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 50px rgba(233, 30, 99, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 80px rgba(233, 30, 99, 0.9);
+            }
+        }
+
+        .yes-btn {
+            padding: 25px 60px;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.5);
+            font-family: 'Georgia', serif;
+            margin: 20px;
+            font-weight: bold;
+        }
+
+            .yes-btn:hover {
+                transform: translateY(-5px) scale(1.1);
+                box-shadow: 0 15px 40px rgba(233, 30, 99, 0.8);
+            }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(156, 39, 176, 0.8);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(156, 39, 176, 0.5);
+            display: none;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+        }
+
+            .music-player.show {
+                display: flex;
+            }
+
+        .music-icon {
+            font-size: 1.5rem;
+            animation: musicNote 1s ease-in-out infinite;
+        }
+
+        @keyframes musicNote {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Mobile Responsive Music Player */
+        @media (max-width: 768px) {
+            .music-player {
+                top: 15px;
+                left: 15px;
+                right: auto;
+                bottom: auto;
+                padding: 10px 15px;
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+
+            .music-icon {
+                font-size: 1.2rem;
+            }
+
+            .music-player span:last-child {
+                display: none;
+            }
+
+            /* Adjust section padding for mobile */
+            section {
+                padding: 60px 15px 40px 15px;
+            }
+
+            /* Hide scroll indicator on mobile for cleaner experience */
+            .scroll-indicator {
+                display: none;
+            }
+
+            /* Adjust photo container for mobile */
+            .photo-container {
+                max-width: 90%;
+            }
+
+            .photo-frame {
+                padding: 30px 20px;
+            }
+
+            /* Smaller corner roses on mobile */
+            .corner-rose {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Celebration */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #e91e63;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Photo Frame Section */
+        .photo-frame {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.3), rgba(233, 30, 99, 0.3));
+            border: 3px solid #ba68c8;
+            border-radius: 30px;
+            padding: 50px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 50px rgba(156, 39, 176, 0.4);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 1.5s ease;
+        }
+
+        section.active .photo-frame {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .corner-rose {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: roseGlow 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 23, 68, 0.6));
+        }
+
+        @keyframes roseGlow {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 10px rgba(255, 23, 68, 0.6));
+            }
+
+            50% {
+                transform: scale(1.15) rotate(15deg);
+                filter: drop-shadow(0 0 20px rgba(255, 23, 68, 0.9));
+            }
+        }
+
+        .top-left {
+            top: -15px;
+            left: -15px;
+            animation-delay: 0s;
+        }
+
+        .top-right {
+            top: -15px;
+            right: -15px;
+            animation-delay: 0.5s;
+        }
+
+        .bottom-left {
+            bottom: -15px;
+            left: -15px;
+            animation-delay: 1s;
+        }
+
+        .bottom-right {
+            bottom: -15px;
+            right: -15px;
+            animation-delay: 1.5s;
+        }
+
+        .photo-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 4px solid #e91e63;
+        }
+
+        .couple-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-container:hover .couple-photo {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(233, 30, 99, 0.1));
+            pointer-events: none;
+        }
+
+        /* Sparkles around photo */
+        .photo-frame::before,
+        .photo-frame::after {
+            content: '✨';
+            position: absolute;
+            font-size: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .photo-frame::before {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .photo-frame::after {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Rose Petals -->
+    <div id="petals-container"></div>
+
+    <!-- Floating Hearts -->
+    <div class="heart" style="top: 10%; left: 10%;">💜</div>
+    <div class="heart" style="top: 20%; right: 15%; animation-delay: 1s;">❤️</div>
+    <div class="heart" style="top: 60%; left: 5%; animation-delay: 2s;">💕</div>
+    <div class="heart" style="bottom: 20%; right: 10%; animation-delay: 1.5s;">💜</div>
+
+    <!-- Section 1: Welcome -->
+    <section id="section1" class="active">
+        <div class="content">
+            <h1>For My Beautiful Tanatsirwa</h1>
+            <div class="rose">🌹</div>
+            <p>Before I ask you something special, I want to take you on a journey...</p>
+            <p>A journey through the moments that made my heart yours.</p>
+            <button class="start-btn" onclick="startJourney()">Begin Our Story 💜</button>
+        </div>
+    </section>
+
+    <!-- Section 2: First Memory -->
+    <section id="section2">
+        <div class="content">
+            <div class="memory-card">
+                <div class="memory-number">✨ Memory One</div>
+                <h2>The First Time</h2>
+                <p class="memory-text">Do you remember the first time our eyes met? In that moment, the world seemed to pause. I didn't know then that I was looking at my future, but something in my heart whispered that you were special.</p>
+                <div class="rose">🌹</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Second Memory -->
+    <section id="section3">
+        <div class="content">
+            <div class="memory-card">
+                <div class="memory-number">💫 Memory Two</div>
+                <h2>Your Smile</h2>
+                <p class="memory-text">Your smile lights up every room you walk into. But more than that, it lights up my entire world. Every time I see it, I fall for you all over again. You have no idea how beautiful you are when you're just being yourself.</p>
+                <div class="rose">🌹</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Third Memory -->
+    <section id="section4">
+        <div class="content">
+            <div class="memory-card">
+                <div class="memory-number">💜 Memory Three</div>
+                <h2>Our Laughter</h2>
+                <p class="memory-text">The way we laugh together, the inside jokes only we understand, the silly moments that nobody else would find funny - these are treasures I keep close to my heart. You make every day brighter, Tanatsirwa.</p>
+                <div class="rose">🌹</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4.5: Our Photo -->
+    <section id="section4-5">
+        <div class="content">
+            <div class="photo-frame">
+                <div class="corner-rose top-left">🌹</div>
+                <div class="corner-rose top-right">🌹</div>
+                <div class="corner-rose bottom-left">🌹</div>
+                <div class="corner-rose bottom-right">🌹</div>
+
+                <div class="photo-container">
+                    <!-- REPLACE 'your-photo.jpg' WITH YOUR ACTUAL PHOTO PATH -->
+                    <img src="TanaandTaf.jpeg" alt="Us Together" class="couple-photo">
+                    <div class="photo-overlay"></div>
+                </div>
+
+                <h2 style="margin-top: 30px; color: #e1bee7;">This Moment, Forever</h2>
+                <p class="memory-text" style="margin-top: 15px;">Every picture tells a story, but this one tells our story. A story I never want to end.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Fourth Memory -->
+    <section id="section5">
+        <div class="content">
+            <div class="memory-card">
+                <div class="memory-number">❤️ Memory Four</div>
+                <h2>Every Little Thing</h2>
+                <p class="memory-text">It's the little things - the way you play with your hair when you're thinking, the sound of your voice when you say my name, the warmth of your presence. These small moments have woven themselves into the fabric of my happiness.</p>
+                <div class="rose">🌹</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: The Question -->
+    <section id="final-question">
+        <div class="content">
+            <div class="question-box">
+                <h1>Tanatsirwa Mugabe</h1>
+                <div class="rose">🌹</div>
+                <div class="rose">🌹</div>
+                <div class="rose">🌹</div>
+                <h2 style="margin-top: 30px; margin-bottom: 30px; font-size: clamp(2rem, 5vw, 3.5rem);">
+                    Will You Be My Valentine?
+                </h2>
+                <button class="yes-btn" onclick="celebrate()">Yes! 💜</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <span class="music-icon">🎵</span>
+        <span>Playing our song...</span>
+    </div>
+
+    <!-- Celebration Container -->
+    <div class="celebration" id="celebration"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">↓</div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="6LACK_ft._Khalid_-_Seasons_(mp3.pm).mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        // Create floating rose petals
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(petal);
+            }
+        }
+
+        createPetals();
+
+        let currentSection = 1;
+        const totalSections = 7;
+
+        function startJourney() {
+            // Start music
+            const music = document.getElementById('bgMusic');
+            music.play().catch(e => console.log('Auto-play prevented'));
+            document.getElementById('musicPlayer').classList.add('show');
+
+            // Move to next section
+            scrollToSection(2);
+        }
+
+        function scrollToSection(sectionNumber) {
+            currentSection = sectionNumber;
+            let sectionId = 'section' + sectionNumber;
+
+            // Handle the photo section with special ID
+            if (sectionNumber === 5) {
+                sectionId = 'section4-5';
+            } else if (sectionNumber > 5) {
+                sectionId = 'section' + (sectionNumber - 1);
+            }
+
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+
+            section.scrollIntoView({ behavior: 'smooth' });
+
+            setTimeout(() => {
+                section.classList.add('active');
+                const card = section.querySelector('.memory-card');
+                if (card) {
+                    card.classList.add('show');
+                }
+            }, 500);
+
+            // Update scroll indicator
+            if (sectionNumber >= totalSections) {
+                document.getElementById('scrollIndicator').classList.add('hidden');
+            }
+        }
+
+        // Scroll detection
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const sections = document.querySelectorAll('section');
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                        section.classList.add('active');
+                        const card = section.querySelector('.memory-card');
+                        if (card) {
+                            card.classList.add('show');
+                        }
+                    }
+                });
+            }, 100);
+        });
+
+        // Mouse wheel navigation (disabled on mobile for better experience)
+        let isScrolling = false;
+        const isMobile = window.innerWidth <= 768;
+
+        if (!isMobile) {
+            window.addEventListener('wheel', (e) => {
+                if (isScrolling) return;
+
+                if (e.deltaY > 0 && currentSection < totalSections) {
+                    isScrolling = true;
+                    scrollToSection(currentSection + 1);
+                    setTimeout(() => { isScrolling = false; }, 1000);
+                } else if (e.deltaY < 0 && currentSection > 1) {
+                    isScrolling = true;
+                    scrollToSection(currentSection - 1);
+                    setTimeout(() => { isScrolling = false; }, 1000);
+                }
+            });
+        }
+
+        // Celebration function
+        function celebrate() {
+            const celebration = document.getElementById('celebration');
+            celebration.style.display = 'block';
+
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -10 + 'px';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+
+                const colors = ['#9c27b0', '#e91e63', '#ba68c8', '#f48fb1', '#ce93d8'];
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                celebration.appendChild(confetti);
+            }
+
+            // Show celebration message
+            setTimeout(() => {
+                alert('🌹💜 I\'m the happiest person alive! I love you, Tanatsirwa! 💜🌹');
+            }, 500);
+
+            // Create more petals
+            createPetals();
+            createPetals();
+        }
+
+        // Better scroll tracking for updating current section
+        let trackingTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(trackingTimeout);
+            trackingTimeout = setTimeout(() => {
+                // Find which section is currently most visible
+                const sections = document.querySelectorAll('section');
+                let mostVisibleSection = 1;
+                let maxVisibility = 0;
+
+                sections.forEach((section) => {
+                    const rect = section.getBoundingClientRect();
+                    const visibility = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+                    if (visibility > maxVisibility) {
+                        maxVisibility = visibility;
+                        // Extract section number from ID
+                        const id = section.id;
+                        if (id === 'section4-5') {
+                            mostVisibleSection = 5;
+                        } else if (id === 'section5') {
+                            mostVisibleSection = 6;
+                        } else if (id === 'final-question') {
+                            mostVisibleSection = 7;
+                        } else {
+                            mostVisibleSection = parseInt(id.replace('section', '')) || 1;
+                        }
+                    }
+                });
+
+                currentSection = mostVisibleSection;
+            }, 150);
+        });
+    </script>
+</body>
+</html>
