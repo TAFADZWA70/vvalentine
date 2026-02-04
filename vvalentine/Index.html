@@ -553,7 +553,7 @@
                 <div class="corner-rose bottom-right">🌹</div>
 
                 <div class="photo-container">
-                    <!-- REPLACE 'your-photo.jpg' WITH YOUR ACTUAL PHOTO PATH -->
+                    
                     <img src="TanaandTaf.jpeg" alt="Us Together" class="couple-photo">
                     <div class="photo-overlay"></div>
                 </div>
@@ -706,6 +706,44 @@
                 }
             });
         }
+
+        // Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            if (isScrolling) return;
+
+            // Arrow Down, Page Down, or Space
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSection < totalSections) {
+                    isScrolling = true;
+                    scrollToSection(currentSection + 1);
+                    setTimeout(() => { isScrolling = false; }, 1000);
+                }
+            }
+            // Arrow Up or Page Up
+            else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentSection > 1) {
+                    isScrolling = true;
+                    scrollToSection(currentSection - 1);
+                    setTimeout(() => { isScrolling = false; }, 1000);
+                }
+            }
+            // Home key - go to first section
+            else if (e.key === 'Home') {
+                e.preventDefault();
+                isScrolling = true;
+                scrollToSection(1);
+                setTimeout(() => { isScrolling = false; }, 1000);
+            }
+            // End key - go to last section
+            else if (e.key === 'End') {
+                e.preventDefault();
+                isScrolling = true;
+                scrollToSection(totalSections);
+                setTimeout(() => { isScrolling = false; }, 1000);
+            }
+        });
 
         // Celebration function
         function celebrate() {
